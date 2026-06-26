@@ -6,15 +6,17 @@ import { getTeacherSettings, saveLiteralGradeValues } from '../services/settings
 
 export function SettingsPage({ onBack }: { onBack: () => void }) {
   const [values, setValues] = useState<Partial<LiteralGradeValues>>({});
+  const [visibleGrades, setVisibleGrades] = useState<string[]>([]);
 
   useEffect(() => {
     getTeacherSettings().then((settings) => {
       setValues(settings.literal_grade_values);
+      setVisibleGrades(settings.visible_literal_grades);
     });
   }, []);
 
   async function save() {
-    await saveLiteralGradeValues(values);
+    await saveLiteralGradeValues(values, visibleGrades);
     onBack();
   }
 
@@ -26,6 +28,14 @@ export function SettingsPage({ onBack }: { onBack: () => void }) {
     return 'grade-green';
   }
 
+  function toggleGrade(grade: string) {
+    setVisibleGrades((current) =>
+      current.includes(grade)
+        ? current.filter((item) => item !== grade)
+        : [...current, grade]
+    );
+  }
+
   return (
     <main className="app-shell">
       <header className="topbar">
@@ -35,7 +45,7 @@ export function SettingsPage({ onBack }: { onBack: () => void }) {
 
         <div>
           <h1>Ezarpenak</h1>
-          <p>Kalifikazio literalak zenbakiz bihurtzea.</p>
+          <p>Kalifikazio literalak eta desplegableetan agertuko diren aukerak.</p>
         </div>
 
         <button onClick={save}>
@@ -45,6 +55,10 @@ export function SettingsPage({ onBack }: { onBack: () => void }) {
 
       <section className="panel">
         <h2>Kalifikazio literalak</h2>
+        <p>
+          Markatutako aukerak bakarrik agertuko dira kalifikazio literaleko
+          desplegableetan.
+        </p>
 
         <div className="literal-columns">
           {['Gutxi', 'Nahiko', 'Ondo', 'Oso Ondo', 'Bikain'].map((base) => {
@@ -59,6 +73,13 @@ export function SettingsPage({ onBack }: { onBack: () => void }) {
 
                   return (
                     <label key={grade} className="literal-row">
+                      <input
+                        type="checkbox"
+                        checked={visibleGrades.includes(grade)}
+                        onChange={() => toggleGrade(grade)}
+                        title="Desplegableetan erakutsi"
+                      />
+
                       <span>{suffix}</span>
 
                       <input

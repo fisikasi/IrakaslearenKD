@@ -783,3 +783,62 @@
   font-size: .72rem;
   opacity: .75;
 }
+
+.literal-row {
+  display: grid;
+  grid-template-columns: 24px 40px 80px;
+  align-items: center;
+  gap: 12px;
+}
+
+.literal-row span {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.grade-pill {
+  width: 70px;
+  height: 44px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #071b3a;
+}
+
+.grade-pill {
+  width: 100px;
+  height: 56px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: #071b3a;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.literal-name{
+    display:block;
+    font-size:.82rem;
+    font-weight:700;
+    line-height:1.05;
+}
+
+.literal-arrows{
+    display:block;
+    font-size:1rem;
+    font-weight:700;
+    line-height:1;
+}
+
+.literal-equivalence{
+    display:block;
+    font-size:.68rem;
+    margin-top:2px;
+    opacity:.75;
+}

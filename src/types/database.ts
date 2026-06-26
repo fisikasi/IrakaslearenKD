@@ -126,6 +126,7 @@ export type LiteralGradeValues = Record<LiteralGrade, number>;
 export type TeacherSettings = {
   teacher_id: string;
   literal_grade_values: Partial<LiteralGradeValues>;
+  visible_literal_grades: string[];
   created_at: string;
   updated_at: string;
 };

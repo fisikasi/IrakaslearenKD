@@ -8,12 +8,14 @@ import { GradingRulesPage } from './pages/GradingRulesPage';
 import { LegalPage } from './pages/LegalPage';
 import { ToolEditorPage } from './pages/ToolEditorPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { ClassCompetenciesPage } from './pages/ClassCompetenciesPage';
 
 type Route =
   | { name: 'dashboard' }
   | { name: 'class'; classId: string }
   | { name: 'student'; classId: string; studentId: string }
   | { name: 'grading-rules'; classId: string }
+  | { name: 'class-competencies'; classId: string }   // ← NUEVA
   | { name: 'tool-editor'; classId: string; toolId?: string }
   | { name: 'settings' }
   | { name: 'legal' };
@@ -64,7 +66,13 @@ export default function App() {
             classId: route.classId,
           })
         }
-        
+        onOpenClassCompetencies={() =>
+          setRoute({
+            name: 'class-competencies',
+            classId: route.classId,
+          })
+        }
+                
       />
     );
   }
@@ -75,6 +83,15 @@ export default function App() {
 
   if (route.name === 'grading-rules') {
     return <GradingRulesPage classId={route.classId} onBack={() => setRoute({ name: 'class', classId: route.classId })} />;
+  }
+
+  if (route.name === 'class-competencies') {
+    return (
+      <ClassCompetenciesPage
+        classId={route.classId}
+        onBack={() => setRoute({ name: 'class', classId: route.classId })}
+      />
+    );
   }
 
 

@@ -28,6 +28,7 @@ import type {
 } from '../types/database';
 
 import { LITERAL_GRADES } from '../types/database';
+import { getTeacherSettings } from '../services/settings';
 
 export function ClassPage({
   classId,
@@ -36,6 +37,7 @@ export function ClassPage({
   onOpenGradingRules,
   onOpenTool,
   onCreateTool,
+  onOpenClassCompetencies,
 }: {
   classId: string;
   onBack: () => void;
@@ -43,6 +45,7 @@ export function ClassPage({
   onOpenGradingRules: () => void;
   onOpenTool: (toolId: string) => void;
   onCreateTool: () => void;
+  onOpenClassCompetencies: () => void;
 }) {
   const [classInfo, setClassInfo] = useState<ClassRow | null>(null);
   const [students, setStudents] = useState<Student[]>([]);
@@ -57,6 +60,7 @@ export function ClassPage({
   const [newStudentName, setNewStudentName] = useState('');
   const [newStudentSurname, setNewStudentSurname] = useState('');
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
+  const [visibleLiteralGrades, setVisibleLiteralGrades] = useState<string[]>([...LITERAL_GRADES]);
 
 
   async function load() {
@@ -75,6 +79,8 @@ export function ClassPage({
     setStudents(loadedStudents);
     setTools(loadedTools);
 
+    const settings = await getTeacherSettings();
+      setVisibleLiteralGrades(settings.visible_literal_grades);
     const statusMap: Record<string, string> = {};
 
     for (const student of loadedStudents) {
@@ -324,8 +330,15 @@ export function ClassPage({
             {classInfo?.subject} {classInfo?.level}
           </p>
         </div>
+        <div className="topbar-actions">
+          <button onClick={onOpenClassCompetencies}>
+            Konpetentzien taula
+          </button>
 
-        <button onClick={onOpenGradingRules}>Kalifikazio irizpideak</button>
+          <button onClick={onOpenGradingRules}>
+            Kalifikazio irizpideak
+          </button>
+        </div>
       </header>
 
       <section className="class-actions-panel">
@@ -539,7 +552,17 @@ export function ClassPage({
                         }
                       >
                         <option value="">Aukeratu</option>
-                        {LITERAL_GRADES.map((grade) => (
+
+                        {[
+                          ...LITERAL_GRADES.filter((grade) =>
+                            visibleLiteralGrades.includes(grade)
+                          ),
+
+                          ...(modalGrades[indicator.id] &&
+                          !visibleLiteralGrades.includes(modalGrades[indicator.id])
+                            ? [modalGrades[indicator.id]]
+                            : []),
+                        ].map((grade) => (
                           <option key={grade} value={grade}>
                             {grade}
                           </option>
