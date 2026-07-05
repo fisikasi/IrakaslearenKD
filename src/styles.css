@@ -969,11 +969,7 @@
   }
 }
 
-.auth-page,
-.center-card {
-  min-height: 100dvh;
-  padding: 1rem;
-}
+
 
 .auth-card {
   width: min(520px, 94vw);
@@ -1096,4 +1092,75 @@ body,
 
 .app-shell {
   display: block;
+}
+
+html,
+body,
+#root {
+  min-height: 100dvh;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.auth-page,
+.center-card {
+  min-height: auto !important;
+  display: block !important;
+  place-items: unset !important;
+  padding: 1rem !important;
+}
+
+.auth-card {
+  width: min(520px, 94vw);
+  margin: 1rem auto 0 auto !important;
+}
+
+.app-shell {
+  display: block !important;
+  min-height: auto !important;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto !important;
+  padding: 1rem !important;
+  padding-top: 1rem !important;
+}
+
+.topbar {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 700px) {
+  .auth-card {
+    margin-top: 1rem !important;
+    padding: 1.5rem;
+  }
+
+  .app-shell {
+    max-width: 100%;
+    margin: 0 !important;
+    padding: .85rem !important;
+    padding-top: .85rem !important;
+  }
+
+  .topbar {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: .75rem;
+    text-align: left;
+  }
+
+  .topbar > div {
+    text-align: left !important;
+  }
+
+  .panel,
+  .class-card,
+  .competency-card {
+    margin-top: 0;
+  }
 }
