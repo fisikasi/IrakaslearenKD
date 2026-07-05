@@ -1013,3 +1013,11 @@
     margin-top: .75rem;
   }
 }
+
+body {
+  overflow-x: hidden;
+}
+
+main {
+  scroll-margin-top: 1rem;
+}
