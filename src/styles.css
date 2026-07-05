@@ -953,3 +953,63 @@
     width: 100%;
   }
 }
+
+.auth-page,
+.center-card {
+  min-height: 100dvh;
+  padding: 1rem;
+}
+
+.auth-card {
+  width: min(520px, 94vw);
+  padding: 2rem;
+}
+
+.auth-card input,
+.auth-card button {
+  min-height: 48px;
+  font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+  .auth-card {
+    width: 94vw;
+    padding: 1.5rem;
+    border-radius: 22px;
+  }
+
+  .auth-card h1 {
+    font-size: 2rem;
+  }
+}
+
+.app-shell {
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    padding: 1rem;
+    padding-top: 1.25rem;
+  }
+
+  .topbar {
+    position: static;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .topbar h1 {
+    font-size: 1.9rem;
+    line-height: 1.1;
+  }
+
+  .topbar p {
+    font-size: 1rem;
+  }
+
+  .panel:first-of-type {
+    margin-top: .75rem;
+  }
+}
